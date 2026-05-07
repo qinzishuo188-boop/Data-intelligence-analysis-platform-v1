@@ -1,0 +1,58 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Runtime data
+cache/
+exports/
+uploads/
+upload/
+logs/
+*.log
+tmp/
+temp/
+*.sqlite
+*.db
+*.db-journal
+
+# Local runtime
+runtime/*
+!runtime/
+!runtime/ai_provider_config.example.json
+依赖模块/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+
+# Build outputs and archives
+dist/
+build/
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+*.bak
+
+# IDE and OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.claude/
