@@ -1,0 +1,207 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据智能分析平台 V1.0</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+</head>
+<body>
+  <!-- 高级背景层 -->
+  <div class="background-layers">
+    <div class="bg-gradient"></div>
+    <div class="bg-grain"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-light-bands"></div>
+  </div>
+
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">D</div>
+        <div>
+          <strong>Data Atelier</strong>
+          <span>面向商业汇报、PPT 和行业分析的数据智能分析平台</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#importPanel">智能导入</a>
+        <a href="#previewPanel">图形视图</a>
+        <a href="#exportPanel">导出中心</a>
+      </nav>
+
+      <div class="status-card">
+        <span>服务状态</span>
+        <strong id="healthBadge" class="badge pending">检测中</strong>
+        <strong id="aiBadge" class="badge pending">AI 检测中</strong>
+        <p>支持中文文本、OCR 识别结果、行业分析内容，以及 Excel / PDF 提取文本的自动结构化分析。</p>
+      </div>
+
+      <div class="sidebar-tip">
+        <h3>智能识别范围</h3>
+        <p>系统会自动识别时间、品类、平台、金额、增长率、占比、用户画像、地域、趋势和对比关系，并输出结构化表格与图表建议。</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">Professional Data Intelligence System</span>
+          <h1>上传文件 · 粘贴文字，自动生成专业级多维可视化图表</h1>
+          <p>一站式数据智能分析平台，支持 Excel、CSV、JSON、TXT、Word、PDF 等多种数据源。系统自动完成数据理解、结构化转换、智能建表和图表推荐，产生适合商业汇报、PPT 展示和战略决策的专业级数据洞察。</p>
+          <div class="hero-actions">
+            <button id="sampleBtn" class="button secondary">载入采购示例</button>
+            <button id="fillParagraphBtn" class="button ghost">载入行业分析示例</button>
+          </div>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric-card">
+            <span>当前数据来源</span>
+            <strong id="sourceBadge">未导入</strong>
+          </div>
+          <div class="metric-card">
+            <span>识别行数</span>
+            <strong id="rowBadge">0</strong>
+          </div>
+          <div class="metric-card">
+            <span>推荐图表数</span>
+            <strong id="renderBadge">等待数据</strong>
+          </div>
+        </div>
+      </section>
+
+      <div id="statusBanner" class="status-banner info">平台已就绪，可以上传文件或直接粘贴中文内容。</div>
+
+      <section class="layout">
+        <section id="importPanel" class="panel composer-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-kicker">STEP 01</span>
+              <h2>导入与解析</h2>
+            </div>
+          </div>
+
+          <div class="composer-grid">
+            <div class="composer-block">
+              <label class="field">
+                <span>上传文件</span>
+                <input type="file" id="fileInput" accept=".csv,.xlsx,.xls,.json,.txt,.docx,.pdf">
+              </label>
+              <button id="uploadBtn" class="button primary">上传文件并解析</button>
+            </div>
+
+            <div class="composer-divider"><span>或</span></div>
+
+            <div class="composer-block">
+              <label class="field">
+                <span>粘贴文本</span>
+                <textarea id="textInput" placeholder="示例：输入行业报告、OCR 识别内容、运营复盘、平台分析或 PDF / Excel 提取文本，系统会自动完成字段识别和图表推荐。"></textarea>
+              </label>
+              <div class="hero-actions">
+                <button id="textRuleBtn" class="button secondary">常规提取</button>
+                <button id="textAiBtn" class="button accent">AI 提取</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="hint-list hint-inline">
+            <div class="hint-item">支持中文文本、OCR 结果、行业分析、会议纪要、PDF / Excel 提取文本。</div>
+            <div class="hint-item">自动识别时间、平台、品类、金额、增长率、占比、用户画像、地域与对比关系。</div>
+            <div class="hint-item">自动生成结构化表格和图表建议，右侧图形视图单独展示，不再显示汇报摘要。</div>
+          </div>
+        </section>
+
+        <section class="panel config-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-kicker">STEP 02</span>
+              <h2>图表配置</h2>
+            </div>
+          </div>
+
+          <label class="field">图表类型
+            <select id="chartType">
+              <option value="bar">柱状图</option>
+              <option value="horizontalBar">横向柱状图</option>
+              <option value="line">折线图</option>
+              <option value="area">面积图</option>
+              <option value="stackedBar">堆叠柱状图</option>
+              <option value="pie">饼图</option>
+              <option value="rosePie">玫瑰图</option>
+              <option value="funnel">漏斗图</option>
+              <option value="scatter">散点图</option>
+              <option value="radar">雷达图</option>
+            </select>
+          </label>
+
+          <label class="field">分类字段
+            <select id="xField"></select>
+          </label>
+
+          <label class="field">数值字段
+            <select id="yFields" multiple size="8"></select>
+          </label>
+
+          <button id="renderBtn" class="button secondary">重新绘制</button>
+
+          <div class="suggestion-block">
+            <div class="suggestion-title">智能推荐图表</div>
+            <div id="suggestions" class="chips"></div>
+          </div>
+
+          <div class="hint-list">
+            <div class="hint-item">如果文本中包含多个指标，系统会先结构化建表，再根据趋势、占比、对比关系自动推荐图表类型。</div>
+            <div class="hint-item">对比型内容优先查看横向柱状图、堆叠柱状图和散点图，趋势型内容优先查看折线图和面积图。</div>
+          </div>
+        </section>
+
+        <section id="previewPanel" class="panel preview-panel">
+          <div class="panel-heading wide">
+            <div>
+              <span class="panel-kicker">STEP 03</span>
+              <h2>图形视图</h2>
+              <p id="datasetMeta" hidden></p>
+            </div>
+            <div class="chart-note">右侧仅展示图形视图</div>
+          </div>
+
+          <div class="preview-grid">
+            <div class="preview-main">
+              <div id="chartCanvas" class="chart-canvas"></div>
+            </div>
+          </div>
+
+          <div class="table-panel">
+            <div class="table-panel-head">
+              <h3>结构化表格</h3>
+              <span>自动纠错、单位补全和数字规范化后的可视化数据底表</span>
+            </div>
+            <div id="tableWrap" class="table-wrap"></div>
+          </div>
+        </section>
+
+        <section id="exportPanel" class="panel export-panel">
+          <div class="panel-heading">
+            <div>
+              <span class="panel-kicker">STEP 04</span>
+              <h2>导出中心</h2>
+            </div>
+          </div>
+          <p>导出 PNG 图表、Excel 分析稿和 PPT 展示稿，结果适合商业汇报、行业分析和数据可视化展示。</p>
+          <button id="exportBtn" class="button accent">导出 PNG / Excel / PPT</button>
+          <div id="exportLinks" class="export-links"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
