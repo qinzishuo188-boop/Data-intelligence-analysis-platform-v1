@@ -1,0 +1,13 @@
+{
+  "name": "data-intelligence-analysis-platform-v1",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "install:ppt": "npm install",
+    "export:ppt": "node export_ppt_report.mjs"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}
